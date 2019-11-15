@@ -1,0 +1,110 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+</head>
+<script>
+      var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+          var text = reader.result;
+          var node = document.getElementById('output');
+          node.innerText = text;
+          console.log(reader.result.substring(0, 200));
+        };
+        reader.readAsText(input.files[0]);
+      };
+    </script>
+<title>Risk Table Manager</title>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+	<ul class="nav navbar-nav navbar-center">
+		<li><a class="nav-link" href="index.html"><img src='logo.jpeg' height = '124' width = '160' alt='logo'></a></li>
+		<li><a class="nav-link" href="builder.html">BUILD RISK TABLE</a></li>
+		<li><a class="nav-link" href="keyrisks.html">KEY RISKS</a></li>
+		<li><a class="nav-link" href="typerisks.html">TYPE OF RISKS</a></li>
+		<li><a class="nav-link" href="samrisks.html">SAMPLE RISK TABLES</a></li>
+		<li><a class="nav-link" href="help.html">HELP FILES</a></li>
+		<li><a class="nav-link" href="samrmmm.html">SAMPLE RMMM</a></li>
+	</ul>
+</nav>  
+   
+	<div>
+		<form>
+		<tr>
+			<p>
+				Risk ID#
+				<input type='text'></input>
+			</p>
+		</tr>
+			<p>
+				Risk Name
+				<input type='text'></input>
+			</p>
+			<p>
+				Risk Impact
+				<input type='text'></input>
+			</p>
+			<p>
+				Risk Probability
+				<input type='text'></input>
+			</p>
+			<input type='button' value='Analyze'></input>
+			<input type='button' value='Save & View'></input>
+		</form>
+		<input type='file' accept='text/plain' onchange='openFile(event)'><br>
+		<div id='output'>
+	</div>
+	
+<footer class="page-footer font-small indigo">
+  <div class="container text-center text-md-left">
+    <div class="row">
+      <div class="col-md-3 mx-auto">
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">LINKS</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="builder.html">BUILD RISK TABLE</a>
+          </li>
+          <li>
+            <a href="keyrisks.html">KEY RISKS</a>
+          </li>
+          <li>
+            <a href="typerisks.html">TYPES OF RISKS</a>
+          </li>
+          <li>
+            <a href="samrisks.html">SAMPLE RISK TABLES</a>
+          </li>
+        </ul>
+
+      </div>
+      <hr class="clearfix w-100 d-md-none">
+      <div class="col-md-3 mx-auto">
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">HELP</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="help.html">WHAT IS RISK?</a>
+          </li>
+		  <li>
+            <a href="samrmmm.html">SAMPLE RMMM</a>
+          </li>
+        </ul>
+      </div>
+      <hr class="clearfix w-100 d-md-none">
+      <div class="col-md-3 mx-auto">
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Contact</h5>
+        <ul class="list-unstyled">
+          <li>
+            <p>(313)436-9155</p>
+          </li>
+          <li>
+            <p>bmaxim@umich.edu</p>
+          </li>
+        </ul>
+      </div>
+</footer>
+</body>
+</html>
