@@ -16,9 +16,60 @@
         };
         reader.readAsText(input.files[0]);
       };
+	  
+
+		function addRow() {
+		
+		var rID 		 = document.getElementById("riskid"); 
+		var rName 		 = document.getElementById("riskname");
+		var rCategory 	 = document.getElementById("riskcategory");
+		var rImpact		 = document.getElementById("riskimpact");
+		var rProbability = document.getElementById("riskprobability");
+		var rDescription = document.getElementById("riskdescription");
+		
+		var table = document.getElementById("riskTableData");
+	 
+		var rowCount = table.rows.length;
+		var row = table.insertRow(rowCount);
+	 
+		row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
+		row.insertCell(1).innerHTML= rID.value;
+		row.insertCell(2).innerHTML= rName.value;
+		row.insertCell(3).innerHTML= rCategory.value;
+		row.insertCell(4).innerHTML= rImpact.value;
+		row.insertCell(5).innerHTML= rProbability.value;
+		row.insertCell(6).innerHTML= rDescription.value;
+	 
+		}
+	 
+		function deleteRow(obj) {
+			  
+			var index = obj.parentNode.parentNode.rowIndex;
+			var table = document.getElementById("riskTableData");
+			table.deleteRow(index);
+			
+		}
+	 
+		function load() {
+			
+			console.log("Page load finished");
+		 
+		}
+		
+		 function clearTxt() {  
+			document.getElementById("riskid").value = ""; 
+			document.getElementById("riskname").value = "";
+			document.getElementById("riskcategory").value = "";
+			document.getElementById("riskimpact").value = "";
+			document.getElementById("riskprobability").value = "";
+			document.getElementById("riskdescription").value = "";
+		}
+
     </script>
+	
 <title>Risk Table Manager</title>
-<body>
+
+<body onload="load()">
 <nav class="navbar navbar-expand-lg navbar-light">
 	<ul class="nav navbar-nav navbar-center">
 		<li><a class="nav-link" href="index.html"><img src='logo.jpeg' height = '124' width = '160' alt='logo'></a></li>
@@ -31,32 +82,68 @@
 	</ul>
 </nav>  
    
-	<div>
-		<form>
-		<tr>
-			<p>
-				Risk ID#
-				<input type='text'></input>
-			</p>
-		</tr>
-			<p>
-				Risk Name
-				<input type='text'></input>
-			</p>
-			<p>
-				Risk Impact
-				<input type='text'></input>
-			</p>
-			<p>
-				Risk Probability
-				<input type='text'></input>
-			</p>
-			<input type='button' value='Analyze'></input>
-			<input type='button' value='Save & View'></input>
-		</form>
-		<input type='file' accept='text/plain' onchange='openFile(event)'><br>
-		<div id='output'>
-	</div>
+
+
+
+<div id="myform">
+
+<table>
+    <tr>
+        <td>Risk ID#</td>
+        <td><input type="text" id="riskid"></td>
+    </tr>
+	<tr>
+        <td>Risk Name</td>
+        <td><input type="text" id="riskname"></td>
+		<td><input type="button" id="automate" value="Check for Automation" onclick="Javascript:automate()"></td>
+    </tr>
+	<tr>
+        <td>Risk Category</td>
+        <td><input type="text" id="riskcategory"></td>
+    </tr>
+	<tr>
+        <td>Risk Impact</td>
+        <td><input type="text" id="riskimpact"></td>
+    </tr>
+	<tr>
+        <td>Risk Probability</td>
+        <td><input type="text" id="riskprobability"></td>
+    </tr>
+    <tr>
+        <td>Risk Description</td>
+        <td><input type="text" id="riskdescription">
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+	<input type="button" id="add" value="Add to Table" onclick="Javascript:addRow()">
+	<input type="button" id="clr" value="Clear Textboxes" onclick="Javascript:clearTxt()">
+	
+	
+</div>
+<br>
+<div id="mydata">
+<table id="riskTableData"  border="1" cellpadding="2">
+    <tr>
+        <td width=68px>&nbsp;</td> 		<!Top Cornor Column/>
+        <td width=68px><b>Risk ID#</b></td>	
+        <td width=380px><b>Risk Name</b></td>
+		<td width=172px><b>Category</b></td>
+		<td width=172px><b>Impact</b></td>
+		<td width=172px><b>Probability</b></td>
+		<td width=600px><b>Risk Description</b></td>
+    </tr>
+</table>
+
+ 
+</div>
+
+<br> <br>
+<p>Automation file path: 
+<input type='file' accept='text/plain' onchange='openFile(event)'>
+<div id='output'>
+</p>
 	
 <footer class="page-footer font-small indigo">
   <div class="container text-center text-md-left">
