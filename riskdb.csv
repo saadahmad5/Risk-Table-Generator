@@ -1,0 +1,10 @@
+Database Failure,PS,Catastrophic,50,Database Crashed and everything gone
+System Crashed,PS,Catastrophic,25,System & OS damaged
+Project Size,PS,Critical,60,Size estimate may be significantly low
+Less Reusage,PS,Critical,70,Less reuse of code than planned
+More Users,PS,Marginal,30,Large number of users than planned
+Delivery Deadline,BU,Critical,40,Delivery deadline would be tightened
+Funding,BU,Catastrophic,50,Lack or Lost of funding
+Changed Requirements,PS,Critical,80,Customer would change the requirements
+Expectations,TE,Catastrophic,30,Technology will not meet expectation
+Inexperienced Staff,ST,Critical,30,Staff is inexperienced to work on a project

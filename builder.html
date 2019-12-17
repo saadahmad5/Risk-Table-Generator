@@ -1,24 +1,45 @@
-<html>
+<!DOCTYPE html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+	<style>
+
+	input[type=text], select, textarea {
+	  padding: 6px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+	  margin-top: 6px;
+	  margin-bottom: 16px;
+	  resize: vertical;
+	}
+	
+	</style>
 </head>
 <script>
+
+	var lines;
       var openFile = function(event) {
         var input = event.target;
 
         var reader = new FileReader();
         reader.onload = function(){
-          var text = reader.result;
+         text  = reader.result;
           var node = document.getElementById('output');
           node.innerText = text;
-          console.log(reader.result.substring(0, 200));
+		  // By lines
+			lines = this.result.split('\n');
+			for(var line = 0; line < lines.length; line++){
+			  console.log(lines[line]);
+			}
+          //console.log(reader.result.substring(0, 200));
         };
         reader.readAsText(input.files[0]);
       };
 	  
 
 		function addRow() {
+		
 		
 		var rID 		 = document.getElementById("riskid"); 
 		var rName 		 = document.getElementById("riskname");
@@ -27,19 +48,48 @@
 		var rProbability = document.getElementById("riskprobability");
 		var rDescription = document.getElementById("riskdescription");
 		
-		var table = document.getElementById("riskTableData");
-	 
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-	 
-		row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-		row.insertCell(1).innerHTML= rID.value;
-		row.insertCell(2).innerHTML= rName.value;
-		row.insertCell(3).innerHTML= rCategory.value;
-		row.insertCell(4).innerHTML= rImpact.value;
-		row.insertCell(5).innerHTML= rProbability.value;
-		row.insertCell(6).innerHTML= rDescription.value;
-	 
+			if(rID.value == "")
+			{
+				alert("Missing Risk ID. Field required");
+			}
+			else if(rName.value == "")
+			{
+				alert("Missing Risk Name. Field required");
+			}
+			else if(rCategory.value == "")
+			{
+				alert("Missing Risk Category. Field required");
+			}
+			else if(rImpact.value == "")
+			{
+				alert("Missing Risk Impact. Field required");
+			}
+			else if(rProbability.value == "")
+			{
+				alert("Missing Risk Probability. Field required");
+			}
+			else if(rDescription.value == "")
+			{
+				alert("Missing Risk Description. Field required");
+			}
+			else
+			{
+				document.getElementById("mydata").style.display = "block";
+				var table = document.getElementById("riskTableData");
+			 
+				var rowCount = table.rows.length;
+				var row = table.insertRow(rowCount);
+			 
+				row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
+				row.insertCell(1).innerHTML= rID.value;
+				row.insertCell(2).innerHTML= rName.value;
+				row.insertCell(3).innerHTML= rCategory.value;
+				row.insertCell(4).innerHTML= rImpact.value;
+				row.insertCell(5).innerHTML= rProbability.value;
+				row.insertCell(6).innerHTML= rDescription.value;
+			}
+			
+			clearTxt();
 		}
 	 
 		function deleteRow(obj) {
@@ -51,12 +101,33 @@
 		}
 	 
 		function load() {
-			
+			document.getElementById("mydata").style.display = "none";
+			document.getElementById("output").style.display = "none";
 			console.log("Page load finished");
 		 
 		}
 		
-		 function clearTxt() {  
+		function automate() {  
+
+			// Loop through all lines
+			for (var j = 0; j < lines.length; j++) {
+			  //console.log('Line ' + j + ' is ' + lines[j])
+			  var riskname1 = document.getElementById("riskname").value;
+			  var riskname2 = lines[j].substring(0,lines[j].indexOf(','));
+			  console.log("Riskname1: " + riskname1);
+			  console.log("Riskname2: " + riskname2);
+			  if(riskname1 == riskname2) {
+					var fields = lines[j].split(','); 
+					document.getElementById("riskname").value = fields[0];
+					document.getElementById("riskcategory").value = fields[1];
+					document.getElementById("riskimpact").value = fields[2];
+					document.getElementById("riskprobability").value = fields[3];
+					document.getElementById("riskdescription").value = fields[4];
+					}
+				}
+		}
+		
+		function clearTxt() {  
 			document.getElementById("riskid").value = ""; 
 			document.getElementById("riskname").value = "";
 			document.getElementById("riskcategory").value = "";
@@ -64,87 +135,87 @@
 			document.getElementById("riskprobability").value = "";
 			document.getElementById("riskdescription").value = "";
 		}
+		
+		function showhide() {
+			  var x = document.getElementById("mydata");
+			  if (x.style.display === "none") {
+				x.style.display = "block";
+			  } else {
+				x.style.display = "none";
+			  }
+			}
+
+		function printContent(){
+			window.print();
+		}
+
 
     </script>
 	
 <title>Risk Table Manager</title>
 
-<body onload="load()">
-<nav class="navbar navbar-expand-lg navbar-light">
-	<ul class="nav navbar-nav navbar-center">
-		<li><a class="nav-link" href="index.html"><img src='logo.jpeg' height = '124' width = '160' alt='logo'></a></li>
+<body onload="load()"  style="background-color:#F7F7F7">
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: whitesmoke;">
+	<ul class="nav navbar-nav navbar-center container">
+		<li><a class="nav-link" href="index.html"><img src='logo.jpeg' height = '72' width = '96'  alt='logo'></a></li>
 		<li><a class="nav-link" href="builder.html">BUILD RISK TABLE</a></li>
 		<li><a class="nav-link" href="keyrisks.html">KEY RISKS</a></li>
 		<li><a class="nav-link" href="typerisks.html">TYPE OF RISKS</a></li>
 		<li><a class="nav-link" href="samrisks.html">SAMPLE RISK TABLES</a></li>
-		<li><a class="nav-link" href="help.html">HELP FILES</a></li>
-		<li><a class="nav-link" href="samrmmm.html">SAMPLE RMMM</a></li>
+		<li><a class="nav-link" href="help.html">HELP</a></li>
 	</ul>
-</nav>  
+</nav>   
    
+<br>
 
 
-
-<div id="myform">
-
-<table>
-    <tr>
-        <td>Risk ID#</td>
-        <td><input type="text" id="riskid"></td>
-    </tr>
-	<tr>
-        <td>Risk Name</td>
-        <td><input type="text" id="riskname"></td>
-		<td><input type="button" id="automate" value="Check for Automation" onclick="Javascript:automate()"></td>
-    </tr>
-	<tr>
-        <td>Risk Category</td>
-        <td><input type="text" id="riskcategory"></td>
-    </tr>
-	<tr>
-        <td>Risk Impact</td>
-        <td><input type="text" id="riskimpact"></td>
-    </tr>
-	<tr>
-        <td>Risk Probability</td>
-        <td><input type="text" id="riskprobability"></td>
-    </tr>
-    <tr>
-        <td>Risk Description</td>
-        <td><input type="text" id="riskdescription">
-    </tr>
-    <tr>
+<div class="container" id="myform">
+<p>Automation file path:
+<input type='file' accept='file' onchange='openFile(event)'>
+<a href="riskdb.csv">Download Sample CSV</a>
+<div id='output'></div>
+</p>
+        <td><input type="text" id="riskid" placeholder="Risk ID..."></td>
+    <br>
+        <td><input type="text" id="riskname" placeholder="Risk Name...">
+		<input type="button" id="automate" value="Check for Automation" onclick="Javascript:automate()"></td>
+    <br>
+        <td><input type="text" id="riskcategory" placeholder="Risk Category..."></td>
+    <br>
+        <td><input type="text" id="riskimpact" placeholder="Risk Impact..."></td>
+    <br>
+        <td><input type="text" id="riskprobability" placeholder="Risk Probability..."></td>
+    <br>
+        <td><input type="text" id="riskdescription" placeholder="Risk Description..." size="64">
+    <br>
         <td>&nbsp;</td>
-    </tr>
-</table>
+    <br>
+
 	<input type="button" id="add" value="Add to Table" onclick="Javascript:addRow()">
 	<input type="button" id="clr" value="Clear Textboxes" onclick="Javascript:clearTxt()">
+	<input type="button" id="sh" value="Show/ Hide Table" onclick="Javascript:showhide()">
+	<input type="button" id="print" value="Print table" onclick="Javacsript:printContent()" >
 	
-	
+
 </div>
 <br>
+<br>
 <div id="mydata">
-<table id="riskTableData"  border="1" cellpadding="2">
-    <tr>
-        <td width=68px>&nbsp;</td> 		<!Top Cornor Column/>
-        <td width=68px><b>Risk ID#</b></td>	
-        <td width=380px><b>Risk Name</b></td>
-		<td width=172px><b>Category</b></td>
-		<td width=172px><b>Impact</b></td>
-		<td width=172px><b>Probability</b></td>
-		<td width=600px><b>Risk Description</b></td>
-    </tr>
-</table>
-
- 
+	<table id="riskTableData" class="container" border="1" cellpadding="2">
+		<tr>
+			<td width=68px size=68px>&nbsp;</td> 		<!--Top Cornor Column-->
+			<td width=68px><b>Risk ID#</b></td>	
+			<td width=380px><b>Risk Name</b></td>
+			<td width=172px><b>Category</b></td>
+			<td width=172px><b>Impact</b></td>
+			<td width=172px><b>Probability</b></td>
+			<td width=600px><b>Risk Description</b></td>
+		</tr>
+	</table>
 </div>
-
-<br> <br>
-<p>Automation file path: 
-<input type='file' accept='text/plain' onchange='openFile(event)'>
-<div id='output'>
-</p>
-	
+	<hr>
 <footer class="page-footer font-small indigo">
   <div class="container text-center text-md-left">
     <div class="row">
@@ -161,9 +232,6 @@
           <li>
             <a href="typerisks.html">TYPES OF RISKS</a>
           </li>
-          <li>
-            <a href="samrisks.html">SAMPLE RISK TABLES</a>
-          </li>
         </ul>
 
       </div>
@@ -173,10 +241,10 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="help.html">WHAT IS RISK?</a>
+            <a href="help.html">HELP & HOW-TO?</a>
           </li>
 		  <li>
-            <a href="samrmmm.html">SAMPLE RMMM</a>
+            <a href="samrisks.html">SAMPLE RISK TABLES</a>
           </li>
         </ul>
       </div>
@@ -185,10 +253,10 @@
         <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Contact</h5>
         <ul class="list-unstyled">
           <li>
-            <p>(313)436-9155</p>
+            <p><a href="tel:+1(313)436-9155">+1 (313) 436-9155</a></p>
           </li>
           <li>
-            <p>bmaxim@umich.edu</p>
+            <p><a href="mailto:bmaxim@umich.edu">bmaxim@umich.edu</a></p>
           </li>
         </ul>
       </div>
